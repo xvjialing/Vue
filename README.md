@@ -83,5 +83,104 @@ new Vue({
 <footer></footer>
 ```
 
+## 父组件向子组件传递信息
+
+先创建一个ComponentA组件
+
+```vue
+<template>
+  <div class="hello">
+    <h1>{{ msg }}</h1>
+    <button v-on:click="clickMe">Click!</button>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      msg: 'Welcome to Component A'
+    }
+  },
+  methods: {
+    clickMe: function () {
+      
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h1, h2 {
+  font-weight: normal;
+}
+</style>
+```
+
+将ComponentA注册到App.vue中
+
+```vue
+<template>
+  <div id="app">
+    <ComponentA></ComponentA>  //在template中添加组件
+  </div>
+</template>
+
+<script>
+import ComponentA from './components/ComponetA'    // 引入组件
+export default {
+  name: 'app',
+  data () {
+    return {
+      
+    }
+  },
+  components: { ComponentA },   // 注册组件
+  methods: {
+  }
+}
+</script>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
+```
+
+在App.vue的CompenentA中加入属性值
+
+```vue
+<ComponentA msgfromfather="father"></ComponentA>
+```
+
+在组件中获取属性值
+
+```vue
+<script>
+export default {
+  data () {
+    return {
+      msg: 'Welcome to Component A'
+    }
+  },
+  props: [ 'msgfromfather' ],    //声明msgfromfather属性
+  methods: {
+    clickMe: function () {
+      console.log(this.msgfromfather)  //获取msgfromfather属性值
+    }
+  }
+}
+</script>
+```
+
+
+
 
 

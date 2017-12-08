@@ -11,11 +11,13 @@
           v-bind:class="{isFinished: item.isFinished}"
           v-on:click="doSomething(item)">{{item.lable}} {{item.isFinished}}</li>
     </ul>
+    <ComponentA msgfromfather="father"></ComponentA>
   </div>
 </template>
 
 <script>
 import Store from './store'
+import ComponentA from './components/ComponetA'
 export default {
   name: 'app',
   data () {
@@ -26,6 +28,7 @@ export default {
       newItem: ''
     }
   },
+  components: { ComponentA },
   watch: {
     items: {
       handler: function (items) {
