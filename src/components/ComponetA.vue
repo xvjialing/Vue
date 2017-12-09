@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <button v-on:click="clickMe">Click!</button>
+    <h1>{{ msgfromfather }}</h1>
+    <button v-on:click="clickMe">open mouse</button>
   </div>
 </template>
 
@@ -16,6 +16,7 @@ export default {
   methods: {
     clickMe: function () {
       console.log(this.msgfromfather)
+      this.$emit('child-tell-me-something', this.msg)
     }
   }
 }

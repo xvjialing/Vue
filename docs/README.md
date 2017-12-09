@@ -180,6 +180,82 @@ export default {
 </script>
 ```
 
+## 子组件向父组件传递信息
+
+```vue
+<template>
+  <div id="app">
+    <p> child tell me: {{ childWords }} </p>
+    <ComponentA msgfromfather="father"
+        v-on:child-tell-me-something="listenToMyBoy"></ComponentA>
+  </div>
+</template>
+
+<script>
+import ComponentA from './components/ComponetA'
+export default {
+  name: 'app',
+  data () {
+    return {
+      childWords: ''
+    }
+  },
+  components: { ComponentA },
+  methods: {
+    listenToMyBoy: function (msg) {
+      console.log('vnwenwp' + msg)
+      this.childWords = msg
+    }
+  }
+}
+</script>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
+
+```
+
+```vue
+<template>
+  <div class="hello">
+    <h1>{{ msgfromfather }}</h1>
+    <button v-on:click="clickMe">open mouse</button>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      msg: 'Welcome to Component A'
+    }
+  },
+  props: [ 'msgfromfather' ],
+  methods: {
+    clickMe: function () {
+      this.$emit('child-tell-me-something', this.msg)
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h1, h2 {
+  font-weight: normal;
+}
+</style>
+
+```
+
 
 
 

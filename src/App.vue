@@ -6,12 +6,14 @@
     <h1 v-text="msg"></h1>
     <h1 v-html="msg3"></h1>
     <input v-model="newItem" v-on:keyup.enter="addNew" />
+    <p> child tell me: {{ childWords }} </p>
     <ul>
       <li v-for="item in items"
           v-bind:class="{isFinished: item.isFinished}"
           v-on:click="doSomething(item)">{{item.lable}} {{item.isFinished}}</li>
     </ul>
-    <ComponentA msgfromfather="father"></ComponentA>
+    <ComponentA msgfromfather="father"
+        v-on:child-tell-me-something="listenToMyBoy"></ComponentA>
   </div>
 </template>
 
@@ -25,7 +27,8 @@ export default {
       msg: 'this is a todolist',
       msg3: '<span>???</span>cwioebiwqo',
       items: Store.fetch(),
-      newItem: ''
+      newItem: '',
+      childWords: ''
     }
   },
   components: { ComponentA },
@@ -53,6 +56,10 @@ export default {
         }
       )
       this.newItem = ''
+    },
+    listenToMyBoy: function (msg) {
+      console.log('vnwenwp' + msg)
+      this.childWords = msg
     }
   }
 }
